@@ -78,3 +78,30 @@ def quick_partition(a, low, high):
     util.exchange(a, low, r)
 
     return r
+
+#--------------- ~ ---------------#
+
+def tim(a, run):
+    for i in range(0, len(a), run):
+        m = i + 31
+        if (i + 31 > len(a) - 1): m = len(a) - 1
+        tim_insertion(a, i, m)
+    size = run
+    while (size < len(a)):
+        for low in range(0, len(a), 2 * size):
+            if (low + size - 1 > len(a) - 1):
+                mid = len(a) - 1
+            else:
+                mid = low + size - 1;
+            if (low + 2 * size - 1 > len(a) - 1):
+                high = len(a) - 1
+            else: high = low + 2 * size - 1
+            merge_combine(a, low, mid, high)
+        size *= 2
+
+def tim_insertion(a, low, high):
+    for i in range(low, high + 1):
+        for j in range(i, low, -1):
+            if (util.less(a[j], a[j - 1])):
+                util.exchange(a, j, j - 1);
+            else: break

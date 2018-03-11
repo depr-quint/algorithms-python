@@ -21,7 +21,8 @@ if (len(sys.argv) > 1 and isInteger(sys.argv[1])):
     length = int(sys.argv[1])
 else:
     length = 20
-    print(sys.argv[1], "is not an integer\n")
+    if (len(sys.argv) > 1):
+        print(sys.argv[1], "is not an integer\n")
 print("~length:", length)
 
 #----- Selection Sort -----#
@@ -56,6 +57,15 @@ print("Quick Sort:")
 test = randomArray(length)
 s = time.time()
 sort.quick(test)
+print("~ time: %.8f" % (time.time() - s))
+if (length < 100):
+    print("~ sorted_:", test, "\n")
+
+#----- Tim Sort -----#
+print("Tim Sort:")
+test = randomArray(length)
+s = time.time()
+sort.tim(test, 32)
 print("~ time: %.8f" % (time.time() - s))
 if (length < 100):
     print("~ sorted_:", test, "\n")
