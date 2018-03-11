@@ -16,56 +16,37 @@ def isInteger(s):
     except ValueError:
         return False
 
+algorithms = {"insertion", "selection", "merge", "quick", "tim", "bubble", "shell"}
+
 # get sys.argv input for the length
-if (len(sys.argv) > 1 and isInteger(sys.argv[1])):
-    length = int(sys.argv[1])
-else:
-    length = 20
-    if (len(sys.argv) > 1):
-        print(sys.argv[1], "is not an integer\n")
-print("~length:", length)
+length, sorts = 20, {}
+if (len(sys.argv) > 1):
+    if (len(sys.argv) == 2):
+        if (isInteger(sys.argv[1])):
+            length = int(sys.argv[1])
+            print("~length: %d\n" % length)
+            sorts = algorithms
+        else:
+            print("~ 1st argument invalid, must be an integer")
+    elif (len(sys.argv) == 3):
+        if (sys.argv[1] in algorithms):
+            sorts = {sys.argv[1]}
+        else:
+            print("~ 1st argument invalid, must be a sorting algorithm")
+        if (isInteger(sys.argv[2])):
+            length = int(sys.argv[2])
+            print("~length: %d\n" % length)
+        else:
+            print("~ 2nd argument invalid, must be an integer")
+    else:
+        print("~ can't use a 3rd argument")
 
-#----- Selection Sort -----#
-print("Selection Sort:")
-test = randomArray(length)
-s = time.time()
-sort.selection(test)
-print("~ time: %.8f" % (time.time() - s))
-if (length < 100):
-    print("~ sorted_:", test, "\n")
-
-#----- Insertion Sort -----#
-print("Insertion Sort:")
-test = randomArray(length)
-s = time.time()
-sort.insertion(test)
-print("~ time: %.8f" % (time.time() - s))
-if (length < 100):
-    print("~ sorted_:", test, "\n")
-
-#----- Merge Sort -----#
-print("Merge Sort:")
-test = randomArray(length)
-s = time.time()
-sort.merge(test)
-print("~ time: %.8f" % (time.time() - s))
-if (length < 100):
-    print("~ sorted_:", test, "\n")
-
-#----- Quick Sort -----#
-print("Quick Sort:")
-test = randomArray(length)
-s = time.time()
-sort.quick(test)
-print("~ time: %.8f" % (time.time() - s))
-if (length < 100):
-    print("~ sorted_:", test, "\n")
-
-#----- Tim Sort -----#
-print("Tim Sort:")
-test = randomArray(length)
-s = time.time()
-sort.tim(test, 32)
-print("~ time: %.8f" % (time.time() - s))
-if (length < 100):
-    print("~ sorted_:", test, "\n")
+for s in sorts:
+    print("~ " + s + " sort:")
+    test = randomArray(length)
+    start = time.time()
+    exec("sort." + s + "(test)")
+    print("~ time: %.8f" % (time.time() - start))
+    if (length < 100):
+        print("~ sorted:", test, "\n")
+    else: print("")

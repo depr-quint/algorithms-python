@@ -43,15 +43,15 @@ def merge_combine(a, low, mid, high):
 
     i, j, k = 0, 0, low
 
-    while i < l and j < r:
+    while (i < l and j < r):
         if left[i] <= right[j]:
             a[k], i = left[i], i + 1
         else:
             a[k], j = right[j], j + 1
         k += 1
-    while i < l:
+    while (i < l):
         a[k], i, k = left[i], i + 1, k + 1
-    while j < r:
+    while (j < r):
         a[k], j, k = right[j], j + 1, k + 1
 
 #--------------- ~ ---------------#
@@ -81,21 +81,16 @@ def quick_partition(a, low, high):
 
 #--------------- ~ ---------------#
 
-def tim(a, run):
-    for i in range(0, len(a), run):
-        m = i + 31
-        if (i + 31 > len(a) - 1): m = len(a) - 1
-        tim_insertion(a, i, m)
+def tim(a):
+    run = 32
+    for low in range(0, len(a), run):
+        mid = util.min(low + 31, len(a) - 1)
+        tim_insertion(a, low, mid)
     size = run
     while (size < len(a)):
         for low in range(0, len(a), 2 * size):
-            if (low + size - 1 > len(a) - 1):
-                mid = len(a) - 1
-            else:
-                mid = low + size - 1;
-            if (low + 2 * size - 1 > len(a) - 1):
-                high = len(a) - 1
-            else: high = low + 2 * size - 1
+            mid = util.min(low + size - 1, len(a) - 1)
+            high = util.min(low + 2 * size - 1, len(a) - 1)
             merge_combine(a, low, mid, high)
         size *= 2
 
@@ -105,3 +100,23 @@ def tim_insertion(a, low, high):
             if (util.less(a[j], a[j - 1])):
                 util.exchange(a, j, j - 1);
             else: break
+
+#--------------- ~ ---------------#
+
+def bubble(a):
+    for i in range(len(a)):
+        for j in range(0, len(a) - i - 1):
+            if (a[j] > a[j + 1]):
+                util.exchange(a, j, j + 1)
+
+#--------------- ~ ---------------#
+
+def shell(a):
+    gap = floor(len(a)/2)
+    while (gap > 0):
+        for i in range(gap, len(a)):
+            tmp, j = a[i], i
+            while (j >= gap and a[j - gap] > tmp):
+                a[j], j = a[j - gap], j - gap
+            a[j] = tmp
+        gap = floor(gap / 2)
