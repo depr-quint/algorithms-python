@@ -1,4 +1,4 @@
-from math import floor
+from math import floor, ceil
 from random import shuffle
 
 from numbers import utilities as util
@@ -120,3 +120,23 @@ def shell(a):
                 a[j], j = a[j - gap], j - gap
             a[j] = tmp
         gap = floor(gap / 2)
+
+#--------------- ~ ---------------#
+
+def bucket(a, n):
+    max = 0
+    for i in range(len(a)):
+        if (a[i] > max): max = a[i]
+    divider = ceil((max + 1) / n)
+    buckets = []
+    for k in range(n): buckets.append([])
+    for i in range(len(a)):
+        buckets[floor(a[i] / divider)].append(a[i])
+    for b in buckets: insertion(b)
+    k = 0
+    for i in range(len(buckets)):
+        for j in range(len(buckets[i])):
+            a[k] = buckets[i][j]
+            k += 1
+
+

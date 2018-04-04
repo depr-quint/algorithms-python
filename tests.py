@@ -16,7 +16,7 @@ def isInteger(s):
     except ValueError:
         return False
 
-algorithms = {"insertion", "selection", "merge", "quick", "tim", "bubble", "shell"}
+algorithms = {"insertion", "selection", "merge", "quick", "tim", "bubble", "shell", "bucket"}
 
 # get sys.argv input for the length
 length, sorts = 20, {}
@@ -45,7 +45,10 @@ for s in sorts:
     print("~ " + s + " sort:")
     test = randomArray(length)
     start = time.time()
-    exec("sort." + s + "(test)")
+    if (s == "bucket"):
+        exec("sort." + s + "(test, 10)")
+    else:
+        exec("sort." + s + "(test)")
     print("~ time: %.8f" % (time.time() - start))
     if (length < 100):
         print("~ sorted:", test, "\n")

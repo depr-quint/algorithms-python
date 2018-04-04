@@ -18,7 +18,7 @@ python3 tests.py [name] [array size]
 - [x] Tim Sort
 
 ## Other Sorting Algorithms
-- [ ] Bucket Sort
+- [x] Bucket Sort
 - [ ] Counting Sort
 - [ ] Heap Sort
 - [ ] Radix Sort
@@ -30,3 +30,6 @@ python3 tests.py [name] [array size]
 ### Links
 - [Visualisations](https://www.cs.usfca.edu/~galles/visualization/ComparisonSort.html)
 - Book: [Algorithms, 4th Edition ](https://algs4.cs.princeton.edu/home/)
+
+## TODO:
+- [ ] Wiki
