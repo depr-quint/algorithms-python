@@ -139,4 +139,15 @@ def bucket(a, n):
             a[k] = buckets[i][j]
             k += 1
 
+# --------------- ~ ---------------#
+
+def counting(a, n):
+    c = [0 for i in range(n + 1)]
+    for i in a: c[i] += 1
+    for i in range(n + 1):
+        if(i > 0): c[i] += c[i-1]
+    a_ = a[:]
+    for i in a_:
+        a[c[i] - 1] = i
+        c[i] -= 1
 

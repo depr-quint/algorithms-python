@@ -19,7 +19,7 @@ python3 tests.py [name] [array size]
 
 ## Other Sorting Algorithms
 - [x] Bucket Sort
-- [ ] Counting Sort
+- [x] Counting Sort
 - [ ] Heap Sort
 - [ ] Radix Sort
 
