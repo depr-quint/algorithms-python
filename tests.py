@@ -16,7 +16,7 @@ def isInteger(s):
     except ValueError:
         return False
 
-algorithms = {"insertion", "selection", "merge", "quick", "tim", "bubble", "shell", "bucket", "counting"}
+algorithms = {"insertion", "selection", "merge", "quick", "tim", "bubble", "shell", "bucket", "counting", "heap"}
 
 # get sys.argv input for the length
 length, sorts = 20, {}

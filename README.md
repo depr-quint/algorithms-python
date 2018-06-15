@@ -8,6 +8,8 @@ How to run/test one comparison sorting algorithm
 python3 tests.py [name] [array size]
 ```
 
+NOTE: if the array size < 100 it will also print out the sorted array.
+
 ## Comparison Sorting Algorithms
 - [x] Bubble Sort
 - [x] Insertion Sort
@@ -20,7 +22,7 @@ python3 tests.py [name] [array size]
 ## Other Sorting Algorithms
 - [x] Bucket Sort
 - [x] Counting Sort
-- [ ] Heap Sort
+- [x] Heap Sort
 - [ ] Radix Sort
 
 ## Graph Algorithms

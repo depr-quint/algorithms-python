@@ -151,3 +151,20 @@ def counting(a, n):
         a[c[i] - 1] = i
         c[i] -= 1
 
+# --------------- ~ ---------------#
+
+def heapify(a, n, i):
+    c, l, r = i, 2 * i + 1, 2 * i + 2
+    if l < n and a[c] < a[l]: c = l
+    if r < n and a[c] < a[r]: c = r
+    if c != i:
+        a[i], a[c] = a[c], a[i]
+        heapify(a, n, c)
+
+def heap(a):
+    n = len(a)
+    for i in range(n // 2 - 1, -1, -1):
+        heapify(a, n, i)
+    for i in range(n-1, 0, -1):
+        a[i], a[0] = a[0], a[i]
+        heapify(a, i, 0)
