@@ -5,15 +5,6 @@ from numbers import utilities as util
 
 #--------------- ~ ---------------#
 
-def insertion(a):
-    for i in range(len(a)):
-        for j in range(i, 0, -1):
-            if (util.less(a[j], a[j - 1])):
-                util.exchange(a, j, j - 1);
-            else: break
-
-#--------------- ~ ---------------#
-
 def selection(a):
     for i in range(len(a)):
         m = i;
