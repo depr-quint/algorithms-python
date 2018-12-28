@@ -5,16 +5,6 @@ from numbers import utilities as util
 
 #--------------- ~ ---------------#
 
-def selection(a):
-    for i in range(len(a)):
-        m = i;
-        for j in range(i + 1, len(a)):
-            if (util.less(a[j], a[m])):
-                m = j;
-        util.exchange(a, i, m);
-
-#--------------- ~ ---------------#
-
 def merge(a):
     merge_sort(a, 0, len(a) - 1)
 
