@@ -22,6 +22,11 @@
 - [x] Depth-limited Search (Iterative Deepening)
 - [x] Bi-directional Search
 
+### Heuristic Searching Algorithms
+- [x] Hill Climbing
+- [x] Beam Search
+- [x] Greedy Search
+
 ## Links
 - [Visualisations](https://www.cs.usfca.edu/%7Egalles/visualization/Algorithms.html)
 - Books
