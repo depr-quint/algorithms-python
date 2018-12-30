@@ -1,9 +1,6 @@
 from test.colors import Colors
 from searching.graph import Graph
 
-from collections import deque
-from random import randint
-
 
 class DepthLimitedSearch:
     def __init__(self):
@@ -12,10 +9,10 @@ class DepthLimitedSearch:
         self.depth = 0
 
     def search(self, graph, start, goals, depth):
-        queue, visited = deque([[start]]), set(start)
+        queue, visited = [[start]], set(start)
         self.depth = depth
         while queue:
-            path = queue.popleft()
+            path = queue.pop(0)
             if len(path) > depth:
                 continue
             self.checked.append(path)
@@ -25,7 +22,7 @@ class DepthLimitedSearch:
                 if child in goals:
                     self.left = queue
                     return path + [child]
-                queue.appendleft(path + [child])
+                queue.insert(0, path + [child])
                 visited.add(child)
         return []
 

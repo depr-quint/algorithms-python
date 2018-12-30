@@ -1,7 +1,6 @@
 from test.colors import Colors
 from searching.graph import Graph
 
-from collections import deque
 from random import randint
 
 
@@ -11,9 +10,9 @@ class NonDeterministicSearch:
         self.left = []
 
     def search(self, graph, start, goals):
-        queue, visited = deque([[start]]), set(start)
+        queue, visited = [[start]], set(start)
         while queue:
-            path = queue.popleft()
+            path = queue.pop(0)
             self.checked.append(path)
             for child in graph[path[-1]]:
                 if child in visited:

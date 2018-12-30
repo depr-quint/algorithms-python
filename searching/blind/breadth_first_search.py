@@ -1,8 +1,6 @@
 from test.colors import Colors
 from searching.graph import Graph
 
-from collections import deque
-
 
 # b = (average) branching factor of the tree
 # m = depth of the shallowest solution
@@ -21,9 +19,9 @@ class BreadthFirstSearch:
         self.left = []
 
     def search(self, graph, start, goals):
-        queue, visited = deque([[start]]), set(start)
+        queue, visited = [[start]], set(start)
         while queue:
-            path = queue.popleft()
+            path = queue.pop(0)
             self.checked.append(path)
             for child in graph[path[-1]]:
                 if child in visited:

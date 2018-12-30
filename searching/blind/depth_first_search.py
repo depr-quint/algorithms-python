@@ -1,8 +1,6 @@
 from test.colors import Colors
 from searching.graph import Graph
 
-from collections import deque
-
 
 # d = depth of the tree
 # b = (average) branching factor
@@ -21,9 +19,9 @@ class DepthFirstSearch:
         self.left = []
 
     def search(self, graph, start, goals):
-        queue, visited = deque([[start]]), set(start)
+        queue, visited = [[start]], set(start)
         while queue:
-            path = queue.popleft()
+            path = queue.pop(0)
             self.checked.append(path)
             for child in graph[path[-1]]:
                 if child in visited:
@@ -31,7 +29,7 @@ class DepthFirstSearch:
                 if child in goals:
                     self.left = queue
                     return path + [child]
-                queue.appendleft(path + [child])
+                queue.insert(0, path + [child])
                 visited.add(child)
         return []
 

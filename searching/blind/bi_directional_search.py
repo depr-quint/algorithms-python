@@ -1,8 +1,6 @@
 from test.colors import Colors
 from searching.graph import Graph
 
-from collections import deque
-
 
 # b = (average) branching factor of the tree
 # m = depth of the shallowest solution
@@ -21,10 +19,10 @@ class BiDirectionalSearch:
         self.left = []
 
     def search(self, graph, start, goal):
-        queue1, queue2 = deque([[start]]), deque([[goal]])
+        queue1, queue2 = [[start]], [[goal]]
         visited1, visited2 = set(start), set(goal)
         while queue1 and queue2:
-            path1, path2 = queue1.popleft(), queue2.popleft()
+            path1, path2 = queue1.pop(0), queue2.pop(0)
             self.checked.append(path1)
             for child in graph[path1[-1]]:
                 if child in visited1:
