@@ -8,17 +8,17 @@ class BeamSearch:
         self.left = []
 
     def search(self, graph, weights, start, goals, width):
-        queue, visited = [[start]], set(start)
+        queue, visited = [[start]], set()
         while queue:
             children = []
             while queue:
                 path = queue.pop(0)
+                visited.add(path[-1])
                 self.checked.append(path)
                 for child in graph[path[-1]]:
                     if child in visited:
                         continue
                     children.append(path + [child])
-                    visited.add(child)
             children.sort(key=lambda x: weights[(x[-1], x[-2])])
             queue = children[:width]
             for path in children[:width]:

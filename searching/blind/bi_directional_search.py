@@ -20,9 +20,10 @@ class BiDirectionalSearch:
 
     def search(self, graph, start, goal):
         queue1, queue2 = [[start]], [[goal]]
-        visited1, visited2 = set(start), set(goal)
+        visited1, visited2 = set(), set()
         while queue1 and queue2:
-            path1, path2 = queue1.pop(0), queue2.pop(0)
+            path1 = queue1.pop(0)
+            visited1.add(path1[-1])
             self.checked.append(path1)
             for child in graph[path1[-1]]:
                 if child in visited1:
@@ -30,8 +31,9 @@ class BiDirectionalSearch:
                 if child in visited2:
                     return path1 + self._get_shared_state(queue2, child)
                 queue1.append(path1 + [child])
-                visited1.add(child)
 
+            path2 = queue2.pop(0)
+            visited2.add(path2[-1])
             self.checked.append(path2)
             for child in graph[path2[-1]]:
                 if child in visited2:
@@ -39,7 +41,6 @@ class BiDirectionalSearch:
                 if child in visited1:
                     return path2 + self._get_shared_state(queue1, child)
                 queue2.append(path2 + [child])
-                visited2.add(child)
         return []
 
     @staticmethod

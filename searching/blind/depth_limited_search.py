@@ -9,10 +9,11 @@ class DepthLimitedSearch:
         self.depth = 0
 
     def search(self, graph, start, goals, depth):
-        queue, visited = [[start]], set(start)
+        queue, visited = [[start]], set()
         self.depth = depth
         while queue:
             path = queue.pop(0)
+            visited.add(path[-1])
             if len(path) > depth:
                 continue
             self.checked.append(path)
@@ -23,7 +24,6 @@ class DepthLimitedSearch:
                     self.left = queue
                     return path + [child]
                 queue.insert(0, path + [child])
-                visited.add(child)
         return []
 
     def iterative_deepening(self, graph, start, goals):

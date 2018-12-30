@@ -19,9 +19,10 @@ class DepthFirstSearch:
         self.left = []
 
     def search(self, graph, start, goals):
-        queue, visited = [[start]], set(start)
+        queue, visited = [[start]], set()
         while queue:
             path = queue.pop(0)
+            visited.add(path[-1])
             self.checked.append(path)
             for child in graph[path[-1]]:
                 if child in visited:
@@ -30,7 +31,6 @@ class DepthFirstSearch:
                     self.left = queue
                     return path + [child]
                 queue.insert(0, path + [child])
-                visited.add(child)
         return []
 
 
