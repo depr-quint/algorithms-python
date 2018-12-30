@@ -26,6 +26,10 @@
 - [x] Hill Climbing
 - [x] Beam Search
 - [x] Greedy Search
+- [x] Uniform Cost
+
+### Optimal Searching Algorithms
+- [x] Uniform Cost + Branch and Bound
 
 ## Links
 - [Visualisations](https://www.cs.usfca.edu/%7Egalles/visualization/Algorithms.html)

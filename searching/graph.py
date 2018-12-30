@@ -34,3 +34,7 @@ class Graph:
     start = 's'
     goal = 'g'
     goals = ['g']
+
+    @staticmethod
+    def cost(path, weights):
+        return sum([weights[(path[i], path[i + 1])] for i in range(len(path) - 1)])
