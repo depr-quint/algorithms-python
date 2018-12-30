@@ -31,6 +31,17 @@ class Graph:
         ('s', 'a'): 3, ('s', 'd'): 4,
     }
 
+    distance = {
+        ('s', 'g'): 11,
+        ('a', 'g'): 10.4,
+        ('b', 'g'): 6.7,
+        ('c', 'g'): 4,
+        ('d', 'g'): 8.9,
+        ('e', 'g'): 6.9,
+        ('f', 'g'): 3,
+        ('g', 'g'): 0,
+    }
+
     start = 's'
     goal = 'g'
     goals = ['g']
@@ -38,3 +49,7 @@ class Graph:
     @staticmethod
     def cost(path, weights):
         return sum([weights[(path[i], path[i + 1])] for i in range(len(path) - 1)])
+
+    @staticmethod
+    def estimate(path, weights, estimate, goal):
+        return Graph.cost(path, weights) + estimate[(path[-1], goal)]

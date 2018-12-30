@@ -30,6 +30,9 @@
 
 ### Optimal Searching Algorithms
 - [x] Uniform Cost + Branch and Bound
+- [x] Uniform Cost + Estimate
+- [x] Uniform Cost + Path Deletion
+- [x] A* Search
 
 ## Links
 - [Visualisations](https://www.cs.usfca.edu/%7Egalles/visualization/Algorithms.html)
