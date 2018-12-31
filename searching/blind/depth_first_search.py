@@ -1,5 +1,5 @@
-from test.colors import Colors
 from searching.graph import Graph
+from searching.search import Search
 
 
 # d = depth of the tree
@@ -13,11 +13,7 @@ from searching.graph import Graph
 # memory (worst case, length queue):    O(b*d)
 
 
-class DepthFirstSearch:
-    def __init__(self):
-        self.checked = []
-        self.left = []
-
+class DepthFirstSearch(Search):
     def search(self, graph, start, goals):
         queue, visited = [[start]], set()
         while queue:
@@ -37,21 +33,7 @@ class DepthFirstSearch:
 def main():
     dfs = DepthFirstSearch()
     path = dfs.search(Graph.graph, Graph.start, Graph.goals)
-
-    if path:
-        Colors.success("%s" % path, "FOUND")
-    else:
-        Colors.fail("[]", "NO PATH")
-
-    if dfs.checked:
-        print("\nCHECKED:")
-        for i, path in enumerate(dfs.checked):
-            Colors.log("%s" % path, "%.3d" % i)
-
-    if dfs.left:
-        print("\nNOT CHECKED:")
-        for i, path in enumerate(dfs.left):
-            Colors.warning("%s" % path, "%.3d" % i)
+    dfs.print_path(path)
 
 
 if __name__ == "__main__":

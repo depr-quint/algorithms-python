@@ -1,13 +1,9 @@
-from test.colors import Colors
 from searching.graph import Graph
+from searching.search import Search
 from searching.heuristic.beam_search import BeamSearch
 
 
-class HillClimbing:
-    def __init__(self):
-        self.checked = []
-        self.left = []
-
+class HillClimbing(Search):
     # hill climbing one
     def search(self, graph, weights, start, goals):
         queue, visited = [[start]], set()
@@ -35,43 +31,15 @@ class HillClimbing:
 
 
 def main():
-    print("HILL CLIMBING ONE")
+    print("HILL CLIMBING ONE:")
     hc = HillClimbing()
     path = hc.search(Graph.graph, Graph.weights, Graph.start, Graph.goals)
+    hc.print_path(path)
 
-    if path:
-        Colors.success("%s" % path, "FOUND")
-    else:
-        Colors.fail("[]", "NO PATH")
-
-    if hc.checked:
-        print("\nCHECKED:")
-        for i, path in enumerate(hc.checked):
-            Colors.log("%s" % path, "%.3d" % i)
-
-    if hc.left:
-        print("\nNOT CHECKED:")
-        for i, path in enumerate(hc.left):
-            Colors.warning("%s" % path, "%.3d" % i)
-
-    print("\nHILL CLIMBING TWO")
+    print("\nHILL CLIMBING TWO:")
     hc = HillClimbing()
     path = hc.search_alt(Graph.graph, Graph.weights, Graph.start, Graph.goals)
-
-    if path:
-        Colors.success("%s" % path, "FOUND")
-    else:
-        Colors.fail("[]", "NO PATH")
-
-    if hc.checked:
-        print("\nCHECKED:")
-        for i, path in enumerate(hc.checked):
-            Colors.log("%s" % path, "%.3d" % i)
-
-    if hc.left:
-        print("\nNOT CHECKED:")
-        for i, path in enumerate(hc.left):
-            Colors.warning("%s" % path, "%.3d" % i)
+    hc.print_path(path)
 
 
 if __name__ == "__main__":

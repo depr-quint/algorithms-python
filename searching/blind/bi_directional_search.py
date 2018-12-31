@@ -1,5 +1,5 @@
-from test.colors import Colors
 from searching.graph import Graph
+from searching.search import Search
 
 
 # b = (average) branching factor of the tree
@@ -13,11 +13,7 @@ from searching.graph import Graph
 # memory (worst case, length queue):    O(b^(m/2))
 
 
-class BiDirectionalSearch:
-    def __init__(self):
-        self.checked = []
-        self.left = []
-
+class BiDirectionalSearch(Search):
     def search(self, graph, start, goal):
         queue1, queue2 = [[start]], [[goal]]
         visited1, visited2 = set(), set()
@@ -55,21 +51,7 @@ class BiDirectionalSearch:
 def main():
     bds = BiDirectionalSearch()
     path = bds.search(Graph.graph, Graph.start, Graph.goal)
-
-    if path:
-        Colors.success("%s" % path, "FOUND")
-    else:
-        Colors.fail("[]", "NO PATH")
-
-    if bds.checked:
-        print("\nCHECKED:")
-        for i, path in enumerate(bds.checked):
-            Colors.log("%s" % path, "%.3d" % i)
-
-    if bds.left:
-        print("\nNOT CHECKED:")
-        for i, path in enumerate(bds.left):
-            Colors.warning("%s" % path, "%.3d" % i)
+    bds.print_path(path)
 
 
 if __name__ == "__main__":

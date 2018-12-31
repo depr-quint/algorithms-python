@@ -1,12 +1,8 @@
-from test.colors import Colors
 from searching.graph import Graph
+from searching.search import OptimalSearch
 
 
-class UniformCost:
-    def __init__(self):
-        self.checked = []
-        self.left = []
-
+class UniformCost(OptimalSearch):
     def search(self, graph, weights, start, goals):
         queue, visited = [[start]], set()
         while queue:
@@ -80,85 +76,25 @@ class UniformCost:
 
 
 def main():
-    print("UNIFORM COST")
+    print("UNIFORM COST:")
     uc = UniformCost()
     path = uc.search(Graph.graph, Graph.weights, Graph.start, Graph.goals)
+    uc.print_cost(path)
 
-    if path:
-        Colors.success("%s, cost %d" % (path, Graph.cost(path, Graph.weights)), "\tFOUND")
-    else:
-        Colors.fail("[]", "\tNO PATH")
-
-    if uc.checked:
-        print("\n\tCHECKED:")
-        for i, path in enumerate(uc.checked):
-            Colors.log("%s, cost: %d" % (path, Graph.cost(path, Graph.weights)), "\t%.3d" % i)
-
-    if uc.left:
-        print("\n\tNOT CHECKED:")
-        for i, path in enumerate(uc.left):
-            Colors.warning("%s, cost: %d" % (path, Graph.cost(path, Graph.weights)), "\t%.3d" % i)
-
-    print("\nBRANCH AND BOUND")
+    print("\nBRANCH AND BOUND:")
     uc = UniformCost()
     path = uc.branch_and_bound(Graph.graph, Graph.weights, Graph.start, Graph.goals)
-
-    if path:
-        Colors.success(
-            "%s, cost %d" % (path, Graph.cost(path, Graph.weights)), "\tFOUND")
-    else:
-        Colors.fail("[]", "\tNO PATH")
-
-    if uc.checked:
-        print("\n\tCHECKED:")
-        for i, path in enumerate(uc.checked):
-            Colors.log("%s, cost: %d" % (path, Graph.cost(path, Graph.weights)), "\t%.3d" % i)
-
-    if uc.left:
-        print("\n\tNOT CHECKED:")
-        for i, path in enumerate(uc.left):
-            Colors.warning("%s, cost: %d" % (path, Graph.cost(path, Graph.weights)), "\t%.3d" % i)
+    uc.print_cost(path)
 
     print("\nESTIMATE EXTENDED")
     uc = UniformCost()
     path = uc.estimate_extended(Graph.graph, Graph.weights, Graph.distance, Graph.start, Graph.goal)
-
-    if path:
-        Colors.success(
-            "%s, cost %0.1f" % (path, Graph.estimate(path, Graph.weights, Graph.distance, Graph.goal)), "\tFOUND")
-    else:
-        Colors.fail("[]", "\tNO PATH")
-
-    if uc.checked:
-        print("\n\tCHECKED:")
-        for i, path in enumerate(uc.checked):
-            Colors.log("%s, cost: %0.1f" % (path, Graph.estimate(path, Graph.weights, Graph.distance, Graph.goal)),
-                       "\t%.3d" % i)
-
-    if uc.left:
-        print("\n\tNOT CHECKED:")
-        for i, path in enumerate(uc.left):
-            Colors.warning("%s, cost: %0.1f" % (path, Graph.estimate(path, Graph.weights, Graph.distance, Graph.goal)),
-                           "\t%.3d" % i)
+    uc.print_estimate(path)
 
     print("\nPATH DELETION")
     uc = UniformCost()
     path = uc.path_deletion(Graph.graph, Graph.weights, Graph.start, Graph.goals)
-
-    if path:
-        Colors.success("%s, cost %d" % (path, Graph.cost(path, Graph.weights)), "\tFOUND")
-    else:
-        Colors.fail("[]", "\tNO PATH")
-
-    if uc.checked:
-        print("\n\tCHECKED:")
-        for i, path in enumerate(uc.checked):
-            Colors.log("%s, cost: %d" % (path, Graph.cost(path, Graph.weights)), "\t%.3d" % i)
-
-    if uc.left:
-        print("\n\tNOT CHECKED:")
-        for i, path in enumerate(uc.left):
-            Colors.warning("%s, cost: %d" % (path, Graph.cost(path, Graph.weights)), "\t%.3d" % i)
+    uc.print_cost(path)
 
 
 if __name__ == "__main__":

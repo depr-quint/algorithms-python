@@ -1,11 +1,10 @@
-from test.colors import Colors
 from searching.graph import Graph
+from searching.search import Search
 
 
-class DepthLimitedSearch:
+class DepthLimitedSearch(Search):
     def __init__(self):
-        self.checked = []
-        self.left = []
+        super().__init__()
         self.depth = 0
 
     def search(self, graph, start, goals, depth):
@@ -37,50 +36,20 @@ class DepthLimitedSearch:
 
 
 def main():
-    print("DEPTH LIMITED:\n")
+    print("DEPTH LIMITED:")
     for depth in range(4, 6):
         print("\tDEPTH: %d" % depth)
 
         dls = DepthLimitedSearch()
         path = dls.search(Graph.graph, Graph.start, Graph.goals, depth)
-
-        if path:
-            Colors.success("%s" % path, "\tFOUND")
-        else:
-            Colors.fail("[]", "\tNO PATH")
-            print()
-            continue
-
-        if dls.checked:
-            print("\n\tCHECKED:")
-            for i, path in enumerate(dls.checked):
-                Colors.log("%s" % path, "\t%.3d" % i)
-
-        if dls.left:
-            print("\n\tNOT CHECKED:")
-            for i, path in enumerate(dls.left):
-                Colors.warning("%s" % path, "\t%.3d" % i)
-
-    print("\nITERATIVE DEEPENING ALGORITHM:\n")
-    dls = DepthLimitedSearch()
-    path = dls.iterative_deepening(Graph.graph, Graph.start, Graph.goals)
-
-    print("\tDEPTH: %d" % dls.depth)
-    if path:
-        Colors.success("%s" % path, "\tFOUND")
-    else:
-        Colors.fail("[]", "\tNO PATH")
+        dls.print_path(path)
         print()
 
-    if dls.checked:
-        print("\n\tCHECKED:")
-        for i, path in enumerate(dls.checked):
-            Colors.log("%s" % path, "\t%.3d" % i)
-
-    if dls.left:
-        print("\n\tNOT CHECKED:")
-        for i, path in enumerate(dls.left):
-            Colors.warning("%s" % path, "\t%.3d" % i)
+    print("ITERATIVE DEEPENING ALGORITHM:")
+    dls = DepthLimitedSearch()
+    path = dls.iterative_deepening(Graph.graph, Graph.start, Graph.goals)
+    print("\tDEPTH: %d" % dls.depth)
+    dls.print_path(path)
 
 
 if __name__ == "__main__":

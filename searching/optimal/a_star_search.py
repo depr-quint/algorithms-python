@@ -1,12 +1,8 @@
-from test.colors import Colors
 from searching.graph import Graph
+from searching.search import OptimalSearch
 
 
-class AStarSearch:
-    def __init__(self):
-        self.checked = []
-        self.left = []
-
+class AStarSearch(OptimalSearch):
     def search(self, graph, weights, estimate, start, goal):
         queue, visited, found = [[start]], set(), []
         while queue:
@@ -64,55 +60,19 @@ def main():
     print("A* SEARCH")
     ass = AStarSearch()
     path = ass.search(Graph.graph, Graph.weights, Graph.distance, Graph.start, Graph.goal)
-
-    if path:
-        Colors.success(
-            "%s, cost %0.1f" % (path, Graph.estimate(path, Graph.weights, Graph.distance, Graph.goal)), "\tFOUND")
-    else:
-        Colors.fail("[]", "\tNO PATH")
-
-    if ass.checked:
-        print("\n\tCHECKED:")
-        for i, path in enumerate(ass.checked):
-            Colors.log("%s, cost: %0.1f" % (path, Graph.estimate(path, Graph.weights, Graph.distance, Graph.goal)),
-                       "\t%.3d" % i)
-
-    if ass.left:
-        print("\n\tNOT CHECKED:")
-        for i, path in enumerate(ass.left):
-            Colors.warning("%s, cost: %0.1f" % (path, Graph.estimate(path, Graph.weights, Graph.distance, Graph.goal)),
-                           "\t%.3d" % i)
+    ass.print_estimate(path)
 
     print("\nITERATIVE DEEPENING")
     ass = AStarSearch()
     path, new_bound = ass.iterative_deepening(Graph.graph, Graph.weights, Graph.distance, Graph.start, Graph.goal, 5)
+    print("\tBOUND: 5")
 
     while not path:
-        if path:
-            Colors.success(
-                "%s, cost %0.1f" % (path, Graph.estimate(path, Graph.weights, Graph.distance, Graph.goal)), "\tFOUND")
-        else:
-            Colors.fail("[]", "\tNO PATH")
-
-        if ass.checked:
-            print("\tCHECKED:")
-            for i, path in enumerate(ass.checked):
-                Colors.log("%s, cost: %0.1f" % (path, Graph.estimate(path, Graph.weights, Graph.distance, Graph.goal)),
-                           "\t%.3d" % i)
+        ass.print_estimate(path)
         print("\n\tBOUND: %d" % new_bound)
         path, new_bound = ass.iterative_deepening(Graph.graph, Graph.weights, Graph.distance, Graph.start, Graph.goal,
                                                   new_bound)
-    if path:
-        Colors.success(
-            "%s, cost %0.1f" % (path, Graph.estimate(path, Graph.weights, Graph.distance, Graph.goal)), "\tFOUND")
-    else:
-        Colors.fail("[]", "\tNO PATH")
-
-    if ass.checked:
-        print("\tCHECKED:")
-        for i, path in enumerate(ass.checked):
-            Colors.log("%s, cost: %0.1f" % (path, Graph.estimate(path, Graph.weights, Graph.distance, Graph.goal)),
-                       "\t%.3d" % i)
+    ass.print_estimate(path)
 
 
 if __name__ == "__main__":

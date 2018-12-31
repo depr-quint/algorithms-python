@@ -1,5 +1,5 @@
-from test.colors import Colors
 from searching.graph import Graph
+from searching.search import Search
 
 
 # b = (average) branching factor of the tree
@@ -13,11 +13,7 @@ from searching.graph import Graph
 # memory (worst case, length queue):    O(b^m)
 
 
-class BreadthFirstSearch:
-    def __init__(self):
-        self.checked = []
-        self.left = []
-
+class BreadthFirstSearch(Search):
     def search(self, graph, start, goals):
         queue, visited = [[start]], set()
         while queue:
@@ -37,21 +33,7 @@ class BreadthFirstSearch:
 def main():
     bfs = BreadthFirstSearch()
     path = bfs.search(Graph.graph, Graph.start, Graph.goals)
-
-    if path:
-        Colors.success("%s" % path, "FOUND")
-    else:
-        Colors.fail("[]", "NO PATH")
-
-    if bfs.checked:
-        print("\nCHECKED:")
-        for i, path in enumerate(bfs.checked):
-            Colors.log("%s" % path, "%.3d" % i)
-
-    if bfs.left:
-        print("\nNOT CHECKED:")
-        for i, path in enumerate(bfs.left):
-            Colors.warning("%s" % path, "%.3d" % i)
+    bfs.print_path(path)
 
 
 if __name__ == "__main__":

@@ -1,12 +1,8 @@
-from test.colors import Colors
 from searching.graph import Graph
+from searching.search import Search
 
 
-class BeamSearch:
-    def __init__(self):
-        self.checked = []
-        self.left = []
-
+class BeamSearch(Search):
     def search(self, graph, weights, start, goals, width):
         queue, visited = [[start]], set()
         while queue:
@@ -32,21 +28,8 @@ def main():
         print("\n" * (width - 1) + "WIDTH: %d" % width)
         bs = BeamSearch()
         path = bs.search(Graph.graph, Graph.weights, Graph.start, Graph.goals, width)
-
-        if path:
-            Colors.success("%s" % path, "\tFOUND")
-        else:
-            Colors.fail("[]", "\tNO PATH")
-
-        if bs.checked:
-            print("\n\tCHECKED:")
-            for i, path in enumerate(bs.checked):
-                Colors.log("%s" % path, "\t%.3d" % i)
-
-        if bs.left:
-            print("\nNOT CHECKED:")
-            for i, path in enumerate(bs.left):
-                Colors.warning("%s" % path, "%.3d" % i)
+        bs.print_path(path)
+        print()
 
 
 if __name__ == "__main__":
